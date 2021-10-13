@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b18aba960557d4daf18ccdc47f8044, type: 3}
+  m_Name: GeneralSettings
+  m_EditorClassIdentifier: 
+  CameraManagerSettings:
+    ZoomInOffset: 12
+    ZoomOutOffset: 1.5
+    ZoomSpeed: 0.2
+    WheelSpeed: 20
+    MoveSpeed: 0.1
+    MoveOffset: 10
+  TypeWriterWidgetSettings:
+    PortraitPrefab: {fileID: 8430219304384991822, guid: 85d0a26f6a53d884196078468acb180f,
+      type: 3}
+    MoveDuration: 1
+    DrawSpeed: 1.5
+    MeleeFrame: {fileID: 21300000, guid: 5d8464298e3b7f84ab7f69b04c1b1dea, type: 3}
+    MainFrame: {fileID: 21300000, guid: 8814cd78d99417349ae25bf1d445eb63, type: 3}
+  HandSettings:
+    HandCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.02
+        value: 0
+        inSlope: 0.14980255
+        outSlope: 0.14980255
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.10285233
+      - serializedVersion: 3
+        time: 4
+        value: 0.25
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.13507032
+      - serializedVersion: 3
+        time: 8.02
+        value: 0
+        inSlope: -0.14907098
+        outSlope: -0.14907098
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.21008039
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    MaxCards: 9
+    YAxisCardOffset: -80
+    YAxisHandHidden: -100
+    CardSpaceMultiplier: 17
+    YAxisMultiplier: 600
+    ZAxisAngleMultiplier: 10000
+    DistanceOfCardsOnSelection:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.00007847657
+        value: 0.008448085
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.22455168
+      - serializedVersion: 3
+        time: 8
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 16
+        value: 0.008448085
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.23042083
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    TokenPrefab: {fileID: -8192353859718512496, guid: 310f60ab7723ef347a0d642c8426ace0,
+      type: 3}
+    ActionCardPrefab: {fileID: 773560356, guid: df6121b748d77f646ac223443aeb71f3,
+      type: 3}
+    TargetedActionCardPrefab: {fileID: -8376779589565132465, guid: c1a12ca3acc3c434483a681a3f631825,
+      type: 3}
+    LineRendererPrefab: {fileID: 5378885617917897732, guid: e9725e3891f42fc4e9b5e717c232bd53,
+      type: 3}
+    BasicActions:
+    - {fileID: 11400000, guid: bee761cb946ad6247af58f8bd8d6d083, type: 2}
+    - {fileID: 11400000, guid: dbbd68071ffeb124fab81d5e563f9dbe, type: 2}
+    - {fileID: 11400000, guid: dbbd68071ffeb124fab81d5e563f9dbe, type: 2}
+    - {fileID: 11400000, guid: dbbd68071ffeb124fab81d5e563f9dbe, type: 2}
+  CardSettings:
+    AnimationSpeedFast: 40
+    AnimationSpeedSlow: 25
+  CellSettings:
+    CellSize: 1.5
+    NormalCell: {fileID: 11400000, guid: 351457f000fe5524aa23431169c789ed, type: 2}
+    ObstacleCell: {fileID: 11400000, guid: 5e1ec93d1f0f72a4aaa24ca5a3ea5002, type: 2}

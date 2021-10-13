@@ -1,0 +1,32 @@
+
+
+-From what you heard, combined with your experience, this what is known about the Plague:
+   A infectant carries it for about ^&*1 to ^&*2 days.
+   Then, they are judged by the Plague to die. If not, there's a chance they'll be freed. This will continue for each coming day after this.
+   After recovery, at least ^&*3 days must pass for them to be able to get ill again.
+
+-Trust:
+   With your actions and their result, you'll have to gain the residents' trust.
+   Failure to do so will result in them rallying against you and you'll be forced to leave. (at -100 Trust)
+   
+
+-Treatments:
+   Purification with Holy Water
+      This alone has no effect, but the residents won't be happy if an ailing dies non-purified.
+      However, the village's trust will grow more if purified patients recover.
+
+   Treacle
+      A remedy that has proven to be effective.
+      One must wait years for this medicament, so it should not be wasted as you have limited amount with you.
+
+   Blood Letting
+      Draining one's blood hasn't given the best results, but it has been observed that it accelerates the infection's outcome, whether that's death or recovery.
+      Such dangerous process cannot be applied on children and the elderly.
+      One can just cut an infectant's skin to drain blood; this is the safer option and speeds up the judgement by one day on average.
+      Leeches can also be used; this is more dangerous, but the acceleration is two days and can only be done on fully developed people.
+      The folk is impressed when the ill recovers using such method.
+      It is better to use this on sick people you are certain they'll recover.
+
+   Death
+      Sometimes the best decision is to put the infectant out of their misery; that way the Plague will have one less servant to help it spread around.
+      Obviously, the residents won't be too keen on such action.

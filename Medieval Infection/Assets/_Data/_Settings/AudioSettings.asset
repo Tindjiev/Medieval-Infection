@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b47b0009e234c94780f8bcfd884bba4, type: 3}
+  m_Name: AudioSettings
+  m_EditorClassIdentifier: 
+  NarrationManagerAudioSettings:
+    IdleNarratorClips:
+    - {fileID: 8300000, guid: e7c8025291a71854693b119a43ecd177, type: 3}
+    _1_Alright_Dave: {fileID: 8300000, guid: 0a73ca29f4bba444badb68f094b93888, type: 3}
+    _2_Behold: {fileID: 8300000, guid: 22ea10e4fc942d945baf604c02aaf209, type: 3}
+    _3_Footsteps: {fileID: 8300000, guid: 0222eecf1b4b222469127b321995be71, type: 3}
+    _4_A_Tutorial_Room: {fileID: 8300000, guid: 25dffc408d327884d88112391cc1566a,
+      type: 3}
+    _5_Comic_Sans: {fileID: 8300000, guid: 64464d4604cc0d94c89546659a241fd9, type: 3}
+    _6_Inventory_Full: {fileID: 8300000, guid: 0f9e4ae8a951bf948a1d31e2afa60142, type: 3}
+    _7_Embarassing: {fileID: 8300000, guid: acaad3b1468592145bd9ac2f9fd6f81a, type: 3}
+    _8_Think_outside_the_box: {fileID: 8300000, guid: 5f1ba0b8508d02a48abde0799e6e4393,
+      type: 3}
+    _9_Educate_yourself: {fileID: 8300000, guid: 99e41cafe28396f458559ccfafa43e29,
+      type: 3}
+    _10_Breathtaking_Vista: {fileID: 8300000, guid: bb56e0ae52e140b4089eca56615f33e9,
+      type: 3}
+    _11_Whats_that_sound: {fileID: 8300000, guid: e5f651f16382048459769e84a0a688ea,
+      type: 3}
+    _12_Not_Scary: {fileID: 8300000, guid: 0c421b3dec9f35a4a89c1918cba55193, type: 3}
+    _13_What_is_scary: {fileID: 8300000, guid: c80b7a3a76bf28247a86cd0d662487ab, type: 3}
+    _14_Underwhelming_Kitchen: {fileID: 8300000, guid: f6efde03d71d54c4d9b0cb288136cfe8,
+      type: 3}
+    _15_Toaster: {fileID: 8300000, guid: 55d38f382387b6e4fb85859e6f695d49, type: 3}
+    _16_The_Hits: {fileID: 8300000, guid: 2a9c4d23863ecdd4cae70d494beef9cc, type: 3}
+    _17_Sure_why_not: {fileID: 8300000, guid: d8963015cced26d45a293c34e0d96618, type: 3}
+    _18_Boiling: {fileID: 8300000, guid: 718c67182213f89489177c705d6e28dd, type: 3}
+    _19_Five_months: {fileID: 8300000, guid: 257f373417ef9a74bad2ce932c22d4df, type: 3}
+    _20_Four_monkeys: {fileID: 8300000, guid: 74603c6859588d047b82eb6e4e5474db, type: 3}
+    _21_Results: {fileID: 8300000, guid: 48e136771b9776f45a2af00e316e88b9, type: 3}
+    _22_Supposed_to_happen: {fileID: 8300000, guid: 44e6b2198b8082f4ca4492353c61a235,
+      type: 3}
+    _23_How_is_this_possible: {fileID: 8300000, guid: 71093cac8ae9bb043a3c0ccda0e02440,
+      type: 3}
+    _24_I_would_slap_it: {fileID: 8300000, guid: fd428632a35974b4ea66435f96e9d1b7,
+      type: 3}
+    _25_Puke: {fileID: 8300000, guid: a916198183c83464bb8ce8fbe26cb4d2, type: 3}
+    _26_Jim_Sterling: {fileID: 8300000, guid: ff8aa862cb94c93428ea261f3d486543, type: 3}
+    _27_The_fuck_is_this: {fileID: 8300000, guid: cc23e1abdb343724f9ce489f533f78c1,
+      type: 3}
+    _28_The_fuck_is_that: {fileID: 8300000, guid: 252bfba953fb1994a8babd608d2b366a,
+      type: 3}
+    _29_Nice_Table: {fileID: 8300000, guid: beb68f5e24560ab4890029309746bb6f, type: 3}
+    _30_Door_allegory: {fileID: 8300000, guid: 5dbf6467929151f4aab953a740248812, type: 3}
+    _31_Promising_corridor: {fileID: 8300000, guid: 0fbb80d7f2da7204792e3b351e3e54a9,
+      type: 3}
+    _32_Invisible_wall: {fileID: 8300000, guid: ffb61ba850491844493f30ce7db90b7b,
+      type: 3}
+    _33_Twitter: {fileID: 8300000, guid: 2e20d6595f3d87045972d6e0adc16943, type: 3}
+    _34_Empty_room: {fileID: 8300000, guid: a2a1ddb3cea8f1648ae80308b69ee9b5, type: 3}
+    _35_What: {fileID: 8300000, guid: 8af6aa4a623ebe14da2752dc5a3f05b1, type: 3}
+    _36_Arbitrary_crap: {fileID: 8300000, guid: 2627cc2132d3add4fbb294313eb4f84f,
+      type: 3}
+    _37_Big_guns: {fileID: 8300000, guid: cd0afda30d60e7b4487b20ba728248d3, type: 3}
+    _38_Dont_touch_anything: {fileID: 8300000, guid: fe6cb61606f9a2343a2bb91733a9babb,
+      type: 3}
+    _39_What_did_I_just_say: {fileID: 8300000, guid: 6f467c6341b5f004594d180e099212fb,
+      type: 3}
+    _40_Worse_off: {fileID: 8300000, guid: 4e3ff4bb09c02de4a8615b63f5e17480, type: 3}
+    _41_No_peanutbutter_here: {fileID: 8300000, guid: f9cfbb554cb0317429da880518888253,
+      type: 3}
+    _42_Sit__down_and_fix_this: {fileID: 8300000, guid: f25e27abb6160bc4091067fe8fd8610b,
+      type: 3}
+    _43_better_I_guess: {fileID: 8300000, guid: 72f944448295a4c46997348223c847de,
+      type: 3}
+    _44_butter: {fileID: 8300000, guid: 7eda7123ef35b4f45bfa85cd88df0223, type: 3}
+    _45_peanut: {fileID: 8300000, guid: a402f4840a682ec44876174159356ada, type: 3}
+    _46_Monkey: {fileID: 8300000, guid: 883db071d87995141ac9b2c07852c2d4, type: 3}
+    _47_priorities: {fileID: 8300000, guid: 68f7b8655983e8543908ab4e972735b4, type: 3}
+    _48_progress: {fileID: 8300000, guid: 2ec766e6831c9c641a42f0aeddd926da, type: 3}
+    _49_Matrix_yardsale: {fileID: 8300000, guid: 81e99cd583b455b41a2bb131703f44a9,
+      type: 3}
+    _50_Katana: {fileID: 8300000, guid: d62946b44348b1b43bc40415ae84055e, type: 3}
+    _51_Dont_deserve_this: {fileID: 8300000, guid: e446f75a8159acb4ead07532d8fb44a8,
+      type: 3}
+    _52_Think_about_what_youve_done: {fileID: 8300000, guid: 24e2f1af3a93ac9468e4516a7bab56f5,
+      type: 3}
+    _53_Murmur: {fileID: 8300000, guid: 5889ad0c9b58175469392335fd69c71d, type: 3}
+  PlayerManagerAudioSettings:
+    IdlePlayerClips:
+    - {fileID: 8300000, guid: 2ce7e9d83927d59439606a2c524ff33d, type: 3}

@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226592d1e4948314287beacdee29a741, type: 3}
+  m_Name: GraphicSettings
+  m_EditorClassIdentifier: 
+  InitiativeDeckGraphicSettings:
+    Spades:
+    - {fileID: -2767236355009617947, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -2322238873309812412, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 7595365643689231845, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -7375929885804758260, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 2352469259177037386, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -6308060620280175243, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 1367412885712794346, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 189050960716523541, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -1170292570247653809, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 2020045211889555626, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -3245604997497023364, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -7818125104410416970, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 7296020486170004092, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    Hearts:
+    - {fileID: -119897316152947686, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 2733131568669939408, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 6529778307705042795, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 433705249549308772, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -7085324663220054555, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -676553542285346584, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 8122597022993114253, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 681094038987944650, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -1093512435347671182, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 69785456932417575, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 1044119454144345171, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 2396081134123449339, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 3768803244925815714, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    Diamonds:
+    - {fileID: 7222652839661084339, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 1627381243388965057, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -7216163774552061754, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 3458261466652041216, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -9070481751768118971, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 6719796720462036958, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 1039950293574020480, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -6773688860989071634, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 5690249452479618840, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 3701700338216592220, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -7758555377317592863, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 2537334890499052534, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 7337129811590604932, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    Clubs:
+    - {fileID: -2445981104127254478, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -8045377838754482271, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -186438710957104502, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -784669064952310736, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 5683236578095735520, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -3017302034055547022, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 5397878453466266223, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 6527704426484343121, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 1217755148915129774, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -8925811777750947652, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 896509809621229442, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: 5960397912692160394, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+    - {fileID: -3379894558110032672, guid: 1159bb1bd8d8be34e951dd7735cf70b4, type: 3}
+  TypewriterWidgetPortraitGraphicSettings:
+    MeleeIcon: {fileID: 21300000, guid: 5d8464298e3b7f84ab7f69b04c1b1dea, type: 3}
+  ClusterGraphicSettings:
+    ClusterColors:
+    - {r: 0.6784314, g: 0.21960786, b: 0.21960786, a: 1}
+    - {r: 0.21960786, g: 0.21960786, b: 0.6784314, a: 1}
+    - {r: 0.21960786, g: 0.6784314, b: 0.21960786, a: 1}
+    - {r: 1, g: 0.909804, b: 0.38823533, a: 1}
+    - {r: 0.011764707, g: 0.78823537, b: 0.82745105, a: 1}
+  DiceControllerGraphicSettings:
+    D6:
+    - {fileID: 1747973442759812875, guid: f417cc7f893e1e64fbcb79ddd6c0143b, type: 3}
+    - {fileID: -5891910768616825179, guid: f417cc7f893e1e64fbcb79ddd6c0143b, type: 3}
+    - {fileID: 537366073777979102, guid: f417cc7f893e1e64fbcb79ddd6c0143b, type: 3}
+    - {fileID: -1198938013210487791, guid: f417cc7f893e1e64fbcb79ddd6c0143b, type: 3}
+    - {fileID: -896394278445848964, guid: f417cc7f893e1e64fbcb79ddd6c0143b, type: 3}
+    - {fileID: -5134089252451727268, guid: f417cc7f893e1e64fbcb79ddd6c0143b, type: 3}
+  CellGraphicSettings:
+    NearColor: {r: 0.011764707, g: 0.78823537, b: 0.82745105, a: 1}
+    FarColor: {r: 1, g: 0.909804, b: 0.38823533, a: 1}
+    PathHoverColor: {r: 0.6784314, g: 0.21960786, b: 0.21960786, a: 1}
+    PathClickColor: {r: 0.21960786, g: 0.6784314, b: 0.21960786, a: 1}
+    ClusterResolvedColor: {r: 1, g: 1, b: 1, a: 1}
+    MeleeSprite: {fileID: 21300000, guid: 5d8464298e3b7f84ab7f69b04c1b1dea, type: 3}
+    ArrowLineSprite: {fileID: 21300000, guid: ee2fb156b5d9a73499269209865e7880, type: 3}
+    ArrowEndSprite: {fileID: 21300000, guid: 167d116dee6aac24d8dca235c87dc440, type: 3}
+    ArrowDiagonalTurnSprite: {fileID: 21300000, guid: 6484cdcc34ea75449add6021b4f48aeb,
+      type: 3}
+    ArrowTurnSprite: {fileID: 21300000, guid: 640f7dd68aeb22e43961264d2a919462, type: 3}
+    ArrowDeclaredColor: {r: 0, g: 0, b: 0, a: 1}
+    ArrowSelectingColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}

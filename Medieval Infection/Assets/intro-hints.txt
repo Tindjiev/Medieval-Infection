@@ -1,0 +1,85 @@
+************************ first edit *************************************
+
+-From your experience and what you've heard these are the things you have deduced about the Plague:
+   It stays on a person for about one to five days.
+   Then, the patient is judged by it to die. If not, there's a chance they'll be freed. This will continue for each coming day after that.
+
+-Trust:
+   According to your actions and their result, you'll either earn the trust of the residents, or they'll rally against you. (At -100 Trust)
+
+
+-Treatments:
+   Purifying with Holy Water
+      This alone has no effect in the results, but the residents will not be happy if a resident dies and it hadn't been applied on them.
+
+   Treacle
+      A medicine that has proven to be effective.
+      One must wait years for it to be produced so your usage of it should be limited as you don't have any left overs.
+
+   BloodLetting
+      Draining one's blood hasn't given the best results, but it has been observed that it accelerates the end of the infection, whether that is death or recovery.
+      One can just cut with a knife the skin of the patient, this is relatively safe and accelerates the judgement on an average of one day.
+      One can also use leeches to drain the blood, this is more dangerous, but the judgement will be accelerated on average by two days.
+      The normal folk is impressed when the patient recovers after such an operation.
+      It cannot be applied on children and old folk and it is best to use this method on patients in good condition
+
+   Death
+      Sometimes the best course of action is to put the patient out of their misery and also that way the Plague will have one less servant to be spread easily.
+	  
+*********************************************** paul edit ***************************************************************
+
+-Medieval chronicles and the Churche's documents have described it as the devil's vengeance; this what we know about the Plague:
+   A person carries it for about one to five days.
+   Then, an infectant is judged to death. If not, there's a chance he'll be freed. This will continue for each coming day after judgement.
+
+-Trust:
+   You are a physical philosopher. According to your actions and their result, you'll either gain the residents' trust, or they'll rally against you. (At -100 Trust)
+
+-Treatments:
+   Holy Water Purification
+      This alone has no effect, but the residents won't be happy if an ailing dies non-purified.
+
+   Treacle
+      A remedy that has proven to be effective.
+      One must wait years for this medicament, so its usage should be frugal.
+
+   Blood Letting
+      Draining one's blood hasn't given the best results, but it has been observed that it accelerates the infection's outcome, whether that's death or recovery.
+      One can just cut an infectant's skin; this is relatively safe and speeds up the judgement by one day on average.
+      One can use leeches to drain the blood; this is more dangerous, but the judgement will be accelerated by two days on average.
+      The folk is impressed when the ill recovers from such a cure.
+      This can not be applied on children and the elderly; it is better to use this method on healthy people.
+
+   Death
+      Sometimes the best decision is to put the sick person out of his misery; that way the Plague will have one less peasant to spread.	
+	  
+*********************************************** new edit ***************************************************************
+
+-From what you heard, combined with your experience, this what is known about the Plague:
+   A infectant carries it for about one to five days.
+   Then, they are judged by the Plague to die. If not, there's a chance they'll be freed. This will continue for each coming day after this.
+
+-Trust:
+   With your actions and their result, you'll have to gain the residents' trust
+   Failure to do so will result in them rallying against you and you'll be forced to leave. (at -100 Trust)
+   
+
+-Treatments:
+   Purification with Holy Water
+      This alone has no effect, but the residents won't be happy if an ailing dies non-purified.
+
+   Treacle
+      A remedy that has proven to be effective.
+      One must wait years for this medicament, so it should not be wasted as you have limited amount with you.
+
+   Blood Letting
+      Draining one's blood hasn't given the best results, but it has been observed that it accelerates the infection's outcome, whether that's death or recovery.
+      Such dangerous process cannot be applied on children and the elderly
+      One can just cut an infectant's skin; this is relatively safe and speeds up the judgement by one day on average.
+      One can use leeches to drain the blood; this is more dangerous, but the judgement will be accelerated by two days on average, ~[can only be done on fully developed people]~
+      The folk is impressed when the ill recovers using such a cure.
+      It is better to use this method on sick people you are certain they'll recover.
+
+   Death
+      Sometimes the best decision is to put the infectant out of his misery; that way the Plague will have one less servant to help it spread around.
+      Obviously, the residents won't be too keen on such action.
