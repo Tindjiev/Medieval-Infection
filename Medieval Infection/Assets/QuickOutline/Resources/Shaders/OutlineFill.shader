@@ -5,23 +5,27 @@
 //  Created by Chris Nolet on 2/21/18.
 //  Copyright © 2018 Chris Nolet. All rights reserved.
 //
+//  (Modified for this project)
+//
 
 Shader "Custom/Outline Fill" {
-    Properties{
-      [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest("ZTest", Float) = 0
 
-      _OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
-      _OutlineWidth("Outline Width", Range(0, 10)) = 2
+    Properties{
+        [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest("ZTest", Float) = 0
+
+        _OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
+        _OutlineWidth("Outline Width", Range(0, 10)) = 1
     }
 
-        SubShader{
-          Tags {
+    SubShader{
+
+        Tags {
             "Queue" = "Transparent+110"
             "RenderType" = "Transparent"
             "DisableBatching" = "True"
-          }
+        }
 
-          Pass {
+        Pass {
             Name "Fill"
             Cull Off
             ZTest[_ZTest]
@@ -30,9 +34,11 @@ Shader "Custom/Outline Fill" {
             ColorMask RGB
 
             Stencil {
-              Ref 1
-              Comp NotEqual
+                Ref 1
+                ReadMask 1
+                Comp NotEqual
             }
+
 
             CGPROGRAM
             #include "UnityCG.cginc"
@@ -41,42 +47,41 @@ Shader "Custom/Outline Fill" {
             #pragma fragment frag
 
             struct appdata {
-              float4 vertex : POSITION;
-              float3 normal : NORMAL;
-              float3 smoothNormal : TEXCOORD3;
-              UNITY_VERTEX_INPUT_INSTANCE_ID
+                float4 vertexPosition : POSITION;
+                float3 normal : NORMAL;
+                float3 smoothNormal : TEXCOORD3;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f {
-              float4 position : SV_POSITION;
-              fixed4 color : COLOR;
-              UNITY_VERTEX_OUTPUT_STEREO
+                float4 position : SV_POSITION;
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             uniform fixed4 _OutlineColor;
             uniform float _OutlineWidth;
 
+            #define CHOOSE_SMOOTH_NORMAL(vData_) (vData_.smoothNormal != 0 ? vData_.smoothNormal : vData_.normal)
+            #define CALC_VIEWNROMAL(normal_) normalize(mul((float3x3)UNITY_MATRIX_IT_MV, normal_))
+
             v2f vert(appdata input) {
-              v2f output;
 
-              UNITY_SETUP_INSTANCE_ID(input);
-              UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
+                v2f output;
 
-              float3 normal = any(input.smoothNormal) ? input.smoothNormal : input.normal;
-              //float3 normal = input.normal;
-              float3 viewPosition = UnityObjectToViewPos(input.vertex);
-              float3 viewNormal = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, normal));
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-              output.position = UnityViewToClipPos(viewPosition + viewNormal * -viewPosition.z * _OutlineWidth / 1000.0);
-              output.color = _OutlineColor;
+                //at Zdistance of 1 from camera the outlinewidth should be 0.01 with _OutlineWidth=1
+                output.position = UnityViewToClipPos(UnityObjectToViewPos(input.vertexPosition) + CALC_VIEWNROMAL(CHOOSE_SMOOTH_NORMAL(input)) * 0.01 * _OutlineWidth);
 
-              return output;
+                return output;
             }
 
             fixed4 frag(v2f input) : SV_Target {
-              return input.color;
+                return _OutlineColor;
             }
+
             ENDCG
-          }
+        }
     }
 }

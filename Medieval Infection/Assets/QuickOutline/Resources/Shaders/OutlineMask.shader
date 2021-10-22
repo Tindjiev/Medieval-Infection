@@ -5,19 +5,24 @@
 //  Created by Chris Nolet on 2/21/18.
 //  Copyright © 2018 Chris Nolet. All rights reserved.
 //
+//  (Modified for this project)
+//
 
 Shader "Custom/Outline Mask" {
+
     Properties{
-      [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest("ZTest", Float) = 0
+        [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest("ZTest", Float) = 0
     }
 
-        SubShader{
-          Tags {
+    SubShader{
+
+        Tags {
             "Queue" = "Transparent+100"
             "RenderType" = "Transparent"
-          }
+        }
 
-          Pass {
+        Pass {
+
             Name "Mask"
             Cull Off
             ZTest[_ZTest]
@@ -25,9 +30,10 @@ Shader "Custom/Outline Mask" {
             ColorMask 0
 
             Stencil {
-              Ref 1
-              Pass Replace
+                Ref 1
+                writeMask 1
+                Pass Replace
             }
-          }
+        }
     }
 }
