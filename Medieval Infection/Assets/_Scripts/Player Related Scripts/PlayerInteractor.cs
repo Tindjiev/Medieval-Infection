@@ -11,7 +11,7 @@ public class PlayerInteractor : MonoBehaviour
     private bool _inputEntered = false;
 
     private TextMeshProUGUI _interactableText;
-    private Outline _outlineOfInteractable;
+    private Outline[] _outlineOfInteractables = new Outline[0];
 
     [Zenject.Inject(Id = InjectIDs.INJECT_INTERACTABLE_TEXT)]
     GameObject interactableText;
@@ -33,11 +33,11 @@ public class PlayerInteractor : MonoBehaviour
         if (_collidedWith == null)
         {
             _interactableText.gameObject.SetActive(false);
-            if (_outlineOfInteractable != null)
+            foreach (var outlineOfInteractable in _outlineOfInteractables)
             {
-                _outlineOfInteractable.enabled = false;
-                _outlineOfInteractable = null;
+                outlineOfInteractable.enabled = false;
             }
+            if (_outlineOfInteractables.Length != 0) _outlineOfInteractables = new Outline[0];
         }
         if (_interactInput.CheckInput())
         {
@@ -66,10 +66,10 @@ public class PlayerInteractor : MonoBehaviour
             _collidedWith = newCollidedWith;
             _interactableText.text = newCollidedWith.TextOnScreen;
             _interactableText.gameObject.SetActive(true);
-            _outlineOfInteractable = other.GetComponent<Outline>();
-            if (_outlineOfInteractable != null)
+            _outlineOfInteractables = other.GetComponentsInChildren<Outline>();
+            foreach (var outlineOfInteractable in _outlineOfInteractables)
             {
-                _outlineOfInteractable.enabled = true;
+                outlineOfInteractable.enabled = true;
             }
         }
 
