@@ -23,7 +23,7 @@ public class MapSetup : MonoBehaviour
     }
 
 
-    private RectTransform[] _houseButtons;
+    private RectTransform[] _houseBoxes;
 
     private float _mapSize = 200f;
     private float _villageSize = 50f;
@@ -41,7 +41,7 @@ public class MapSetup : MonoBehaviour
 
     private void Start()
     {
-        setupHouses();
+        SetupHouses();
 
     }
 
@@ -52,10 +52,7 @@ public class MapSetup : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_houseButtons == null)
-        {
-            return;
-        }
+        if (_houseBoxes == null) return;
         UpdateMap();
     }
 
@@ -70,12 +67,12 @@ public class MapSetup : MonoBehaviour
         return _shrinkRatio * (posInRealWorld - _centre).toVector2();
     }
 
-    private void setupHouses()
+    private void SetupHouses()
     {
         CalcCenter();
         CalculateShringRatio();
-        createHouseButtons();
-        setPositionsAndSizes();
+        CreateHouseBoxes();
+        SetPositionsAndSizes();
     }
 
     public void UpdateMap()
@@ -87,7 +84,7 @@ public class MapSetup : MonoBehaviour
 
     private void UpdateNumbers()
     {
-        foreach (var building in _village.Zip(_houseButtons, (r, g) => new { real = r, gui = g }))
+        foreach (var building in _village.Zip(_houseBoxes, (r, g) => new { real = r, gui = g }))
         {
             TextMeshProUGUI[] textGui = building.gui.parent.GetComponentsInChildren<TextMeshProUGUI>();
             textGui[0].text = building.real.TotalResidents.ToString();
@@ -106,7 +103,7 @@ public class MapSetup : MonoBehaviour
 
     private void labelInfected()
     {
-        foreach (var building in _village.Zip(_houseButtons, (r, g) => new { real = r, gui = g }))
+        foreach (var building in _village.Zip(_houseBoxes, (r, g) => new { real = r, gui = g }))
         {
             Image image = building.gui.GetComponent<Image>();
             if (building.real.IsInfected())
@@ -138,7 +135,7 @@ public class MapSetup : MonoBehaviour
         {
             _centre += building.position;
         }
-        _centre /= _village.Count();
+        _centre /= _village.NumberOfBuildings;
     }
 
     private void CalculateShringRatio()
@@ -161,19 +158,19 @@ public class MapSetup : MonoBehaviour
         return maxdistsq.Sqrt();
     }
 
-    private void createHouseButtons()
+    private void CreateHouseBoxes()
     {
-        _houseButtons = new RectTransform[_village.NumberOfBuildings];
-        _houseButtons[0] = transform.GetChild(0).GetChild(0).GetChild(0).As<RectTransform>();
-        for(int i = 1; i < _houseButtons.Length; i++)
+        _houseBoxes = new RectTransform[_village.NumberOfBuildings];
+        _houseBoxes[0] = transform.GetChild(0).GetChild(0).GetChild(0).As<RectTransform>();
+        for(int i = 1; i < _houseBoxes.Length; i++)
         {
-            _houseButtons[i] = Instantiate(_houseButtons[0].parent, _houseButtons[0].parent.parent).GetChild(0).As<RectTransform>();
+            _houseBoxes[i] = Instantiate(_houseBoxes[0].parent, _houseBoxes[0].parent.parent).GetChild(0).As<RectTransform>();
         }
     }
 
-    private void setPositionsAndSizes()
+    private void SetPositionsAndSizes()
     {
-        var buildings = _village.Zip(_houseButtons, (r, g) => new { real = r, gui = g });
+        var buildings = _village.Zip(_houseBoxes, (r, g) => new { real = r, gui = g });
         foreach (var building in buildings)
         {
             building.gui.parent.As<RectTransform>().anchoredPosition = SetPositionOnMap(building.real.position);

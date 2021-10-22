@@ -115,12 +115,14 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 854ca225359665947ba002d3816a12a1, type: 2}
   - {fileID: 2100000, guid: 5ec1a107587fa424889550f8d0a061e3, type: 2}
-  - {fileID: 2100000, guid: be3c5d4b69b07eb4db82f1a0cd643cb1, type: 2}
+  - {fileID: 2100000, guid: 0deb433d2cb6aa64ca92c074e967208d, type: 2}
+  - {fileID: 2100000, guid: 0deb433d2cb6aa64ca92c074e967208d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -141,6 +143,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &807948141
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -152,8 +155,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 7.5999994, z: 5.2364063}
-  m_Center: {x: -2, y: 3.7999997, z: -2.1499996}
+  m_Size: {x: 5.0000005, y: 7.6, z: 5.24}
+  m_Center: {x: 0, y: 3.7999997, z: 0}
 --- !u!114 &807948142
 MonoBehaviour:
   m_ObjectHideFlags: 0

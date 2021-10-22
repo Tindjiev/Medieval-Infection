@@ -19,45 +19,19 @@ public abstract class Building : MonoBehaviour
 
     public bool Useless { get; protected set; } = false;
 
-    public int TotalResidents
-    {
-        get
-        {
-            return _residents.Count;
-        }
-    }
+    public int TotalResidents => _residents.Count;
 
-    public Vector3 position
-    {
-        get
-        {
-            return _coll.bounds.center;//transform.position + _coll.center;//_coll.center.MulElementWise(_coll.size / 2f);
-        }
-    }
+    public Vector3 position => _coll.bounds.center;//transform.position + _coll.center;//_coll.center.MulElementWise(_coll.size / 2f);
 
     private BoxCollider _coll;
 
-    public Vector2 SizeAsSeenFromAbove
-    {
-        get
-        {
-            return new Vector2(_coll.size.x, _coll.size.z);
-        }
-    }
-
-    public Vector3 size
-    {
-        get
-        {
-            return transform.localScale;
-        }
-    }
+    public Vector2 SizeAsSeenFromAbove => new Vector2(_coll.size.x, _coll.size.z);
 
     protected void Awake()
     {
         Door = GetComponentInChildren<Door>();
         _village = this.getvars<Village>();
-        _coll = this.getvars<BoxCollider>();
+        _coll = GetComponentInChildren<BoxCollider>();
     }
 
     public abstract void EnterBuilding();

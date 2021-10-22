@@ -43,13 +43,7 @@ public class Village : MonoBehaviour, IEnumerable<Building>
     public int BuildingsInfected { get; private set; }
 
 
-    public int NumberOfBuildings
-    {
-        get
-        {
-            return _buildings.Length;
-        }
-    }
+    public int NumberOfBuildings => _buildings.Length;
 
     public int TotalResidents
     {
@@ -90,13 +84,7 @@ public class Village : MonoBehaviour, IEnumerable<Building>
         }
     }
 
-    public int DeathPercentage
-    {
-        get
-        {
-            return DeadResidents / (DeadResidents + TotalResidents);
-        }
-    }
+    public int DeathPercentage => DeadResidents / (DeadResidents + TotalResidents);
 
     public void IncreaseRecoveries()
     {
@@ -108,13 +96,7 @@ public class Village : MonoBehaviour, IEnumerable<Building>
         Infections++;
     }
 
-    public Building this[int index]
-    {
-        get
-        {
-            return _buildings[index];
-        }
-    }
+    public Building this[int index] => _buildings[index];
 
     public void AddInfectedBuilding()
     {
@@ -163,51 +145,9 @@ public class Village : MonoBehaviour, IEnumerable<Building>
         }
     }
 
-    private struct Enumerator : IEnumerator<Building>
-    {
-        private int _iEnumeratorIndex;
-        private Building[] _buildings;
-        public Enumerator(Village village)
-        {
-            _buildings = village._buildings;
-            _iEnumeratorIndex = -1;
-        }
-
-        public Building Current
-        {
-            get
-            {
-                return _buildings[_iEnumeratorIndex];
-            }
-        }
-
-        object IEnumerator.Current
-        {
-            get
-            {
-                return Current;
-            }
-        }
-
-        void IDisposable.Dispose()
-        {
-        }
-
-        bool IEnumerator.MoveNext()
-        {
-            return (++_iEnumeratorIndex) < _buildings.Length;
-        }
-
-        void IEnumerator.Reset()
-        {
-            _iEnumeratorIndex = -1;
-        }
-    }
-
     public IEnumerator<Building> GetEnumerator()
     {
-        //return ((IEnumerable<Building>)_buildings).GetEnumerator();
-        return new Enumerator(this);
+        return ((IEnumerable<Building>)_buildings).GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
