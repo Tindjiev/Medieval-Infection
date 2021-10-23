@@ -5,6 +5,8 @@
 //  Created by Chris Nolet on 3/30/18.
 //  Copyright © 2018 Chris Nolet. All rights reserved.
 //
+//  (Modified for this project)
+//
 
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ using UnityEngine;
 
 public class Outline : MonoBehaviour
 {
-    private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
+    private static HashSet<Mesh> _registeredMeshes = new HashSet<Mesh>();
 
     public enum Mode
     {
@@ -28,90 +30,108 @@ public class Outline : MonoBehaviour
 
     public Mode OutlineMode
     {
-        get { return outlineMode; }
+        get => _outlineMode;
         set
         {
-            outlineMode = value;
-            needsUpdate = true;
+            _outlineMode = value;
+            _needsUpdate = true;
         }
     }
 
     public Color OutlineColor
     {
-        get { return outlineColor; }
+        get => _outlineColor;
         set
         {
-            outlineColor = value;
-            needsUpdate = true;
+            _outlineColor = value;
+            _needsUpdate = true;
         }
     }
 
     public float OutlineWidth
     {
-        get { return outlineWidth; }
+        get => _outlineWidth;
         set
         {
-            outlineWidth = value;
-            needsUpdate = true;
+            _outlineWidth = value;
+            _needsUpdate = true;
         }
     }
 
     [Serializable]
     private class ListVector3
     {
-        public List<Vector3> data;
+        public List<Vector3> Data;
     }
 
     [SerializeField]
-    private Mode outlineMode;
+    private Mode _outlineMode;
 
     [SerializeField]
-    private Color outlineColor = Color.white;
+    private Color _outlineColor = Color.white;
 
     [SerializeField, Range(0f, 10f)]
-    private float outlineWidth = 2f;
+    private float _outlineWidth = 1f;
 
     [Header("Optional")]
 
     [SerializeField, Tooltip("Precompute enabled: Per-vertex calculations are performed in the editor and serialized with the object. "
     + "Precompute disabled: Per-vertex calculations are performed at runtime in Awake(). This may cause a pause for large meshes.")]
-    private bool precomputeOutline;
+    private bool _precomputeOutline;
 
     [SerializeField, HideInInspector]
-    private List<Mesh> bakeKeys = new List<Mesh>();
+    private List<Mesh> _bakeKeys = new List<Mesh>();
 
     [SerializeField, HideInInspector]
-    private List<ListVector3> bakeValues = new List<ListVector3>();
+    private List<ListVector3> _bakeValues = new List<ListVector3>();
 
-    private Renderer[] renderers;
-    private Material outlineMaskMaterial;
-    private Material outlineFillMaterial;
+    private Renderer[] _renderers;
+    private Material _outlineMaskMaterial;
+    private Material _outlineFillMaterial;
 
-    private bool needsUpdate;
+    private bool _needsUpdate;
 
-    void Awake()
+    [SerializeField]
+    private bool _isOutlinePrefab = false;
+    private Renderer _renderer;
+
+    private void Awake()
     {
+        if (_isOutlinePrefab)
+        {
+            _renderer = GetComponent<Renderer>();
+            var materials = _renderer.materials;
+            _outlineMaskMaterial = materials[0];
+            _outlineFillMaterial = materials[1];
+        }
+        else
+        {
+            // Cache renderers
+            _renderers = GetComponentsInChildren<Renderer>();
 
-        // Cache renderers
-        renderers = GetComponentsInChildren<Renderer>();
+            // Instantiate outline materials
+            _outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));
+            _outlineFillMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineFill"));
 
-        // Instantiate outline materials
-        outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));
-        outlineFillMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineFill"));
-
-        outlineMaskMaterial.name = "OutlineMask (Instance)";
-        outlineFillMaterial.name = "OutlineFill (Instance)";
+            _outlineMaskMaterial.name = "OutlineMask (Instance)";
+            _outlineFillMaterial.name = "OutlineFill (Instance)";
+        }
 
         // Retrieve or generate smooth normals
         LoadSmoothNormals();
 
         // Apply material properties immediately
-        needsUpdate = true;
+        _needsUpdate = true;
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        foreach (var renderer in renderers)
+        if (_isOutlinePrefab)
+        {
+            _renderer.enabled = true;
+            return;
+        }
+        foreach (var renderer in _renderers)
         {
 
             // Append outline shaders
@@ -119,67 +139,72 @@ public class Outline : MonoBehaviour
 
             System.Array.Resize(ref materials, materials.Length + 2);
 
-            materials[materials.Length - 2] = outlineMaskMaterial;
-            materials[materials.Length - 1] = outlineFillMaterial;
+            materials[materials.Length - 2] = _outlineMaskMaterial;
+            materials[materials.Length - 1] = _outlineFillMaterial;
 
             renderer.materials = materials;
         }
     }
 
-    void OnValidate()
+    private void OnValidate()
     {
 
         // Update material properties
-        needsUpdate = true;
+        _needsUpdate = true;
 
         // Clear cache when baking is disabled or corrupted
-        if (!precomputeOutline && bakeKeys.Count != 0 || bakeKeys.Count != bakeValues.Count)
+        if (!_precomputeOutline && _bakeKeys.Count != 0 || _bakeKeys.Count != _bakeValues.Count)
         {
-            bakeKeys.Clear();
-            bakeValues.Clear();
+            _bakeKeys.Clear();
+            _bakeValues.Clear();
         }
 
         // Generate smooth normals when baking is enabled
-        if (precomputeOutline && bakeKeys.Count == 0)
+        if (_precomputeOutline && _bakeKeys.Count == 0)
         {
             Bake();
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if (needsUpdate)
+        if (_needsUpdate)
         {
-            needsUpdate = false;
+            _needsUpdate = false;
 
             UpdateMaterialProperties();
         }
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        foreach (var renderer in renderers)
+        if (_isOutlinePrefab)
+        {
+            _renderer.enabled = false;
+            return;
+        }
+        foreach (var renderer in _renderers)
         {
 
             // Remove outline shaders
             var materials = renderer.sharedMaterials.ToList();
 
-            materials.Remove(outlineMaskMaterial);
-            materials.Remove(outlineFillMaterial);
+            materials.Remove(_outlineMaskMaterial);
+            materials.Remove(_outlineFillMaterial);
 
             renderer.materials = materials.ToArray();
         }
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
 
         // Destroy material instances
-        Destroy(outlineMaskMaterial);
-        Destroy(outlineFillMaterial);
+        Destroy(_outlineMaskMaterial);
+        Destroy(_outlineFillMaterial);
     }
 
-    void Bake()
+    private void Bake()
     {
 
         // Generate smooth normals for each mesh
@@ -197,12 +222,12 @@ public class Outline : MonoBehaviour
             // Serialize smooth normals
             var smoothNormals = SmoothNormals(meshFilter.sharedMesh);
 
-            bakeKeys.Add(meshFilter.sharedMesh);
-            bakeValues.Add(new ListVector3() { data = smoothNormals });
+            _bakeKeys.Add(meshFilter.sharedMesh);
+            _bakeValues.Add(new ListVector3() { Data = smoothNormals });
         }
     }
 
-    void LoadSmoothNormals()
+    private void LoadSmoothNormals()
     {
 
         // Retrieve or generate smooth normals
@@ -210,14 +235,14 @@ public class Outline : MonoBehaviour
         {
 
             // Skip if smooth normals have already been adopted
-            if (!registeredMeshes.Add(meshFilter.sharedMesh))
+            if (!_registeredMeshes.Add(meshFilter.sharedMesh))
             {
                 continue;
             }
 
             // Retrieve or generate smooth normals
-            var index = bakeKeys.IndexOf(meshFilter.sharedMesh);
-            var smoothNormals = (index >= 0) ? bakeValues[index].data : SmoothNormals(meshFilter.sharedMesh);
+            var index = _bakeKeys.IndexOf(meshFilter.sharedMesh);
+            var smoothNormals = (index >= 0) ? _bakeValues[index].Data : SmoothNormals(meshFilter.sharedMesh);
 
             // Store smooth normals in UV3
             meshFilter.sharedMesh.SetUVs(3, smoothNormals);
@@ -226,14 +251,14 @@ public class Outline : MonoBehaviour
         // Clear UV3 on skinned mesh renderers
         foreach (var skinnedMeshRenderer in GetComponentsInChildren<SkinnedMeshRenderer>())
         {
-            if (registeredMeshes.Add(skinnedMeshRenderer.sharedMesh))
+            if (_registeredMeshes.Add(skinnedMeshRenderer.sharedMesh))
             {
                 skinnedMeshRenderer.sharedMesh.uv4 = new Vector2[skinnedMeshRenderer.sharedMesh.vertexCount];
             }
         }
     }
 
-    List<Vector3> SmoothNormals(Mesh mesh)
+    private List<Vector3> SmoothNormals(Mesh mesh)
     {
 
         // Group vertices by location
@@ -272,42 +297,42 @@ public class Outline : MonoBehaviour
         return smoothNormals;
     }
 
-    void UpdateMaterialProperties()
+    private void UpdateMaterialProperties()
     {
 
         // Apply properties according to mode
-        outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
+        _outlineFillMaterial.SetColor("_OutlineColor", _outlineColor);
 
-        switch (outlineMode)
+        switch (_outlineMode)
         {
             case Mode.OutlineAll:
-                outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                _outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                _outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                _outlineFillMaterial.SetFloat("_OutlineWidth", _outlineWidth);
                 break;
 
             case Mode.OutlineVisible:
-                outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-                outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                _outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                _outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
+                _outlineFillMaterial.SetFloat("_OutlineWidth", _outlineWidth);
                 break;
 
             case Mode.OutlineHidden:
-                outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
-                outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                _outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                _outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
+                _outlineFillMaterial.SetFloat("_OutlineWidth", _outlineWidth);
                 break;
 
             case Mode.OutlineAndSilhouette:
-                outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-                outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                _outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
+                _outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                _outlineFillMaterial.SetFloat("_OutlineWidth", _outlineWidth);
                 break;
 
             case Mode.SilhouetteOnly:
-                outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-                outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
-                outlineFillMaterial.SetFloat("_OutlineWidth", 0);
+                _outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
+                _outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
+                _outlineFillMaterial.SetFloat("_OutlineWidth", 0);
                 break;
         }
     }
