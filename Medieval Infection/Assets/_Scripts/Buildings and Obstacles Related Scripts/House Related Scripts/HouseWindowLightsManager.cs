@@ -8,10 +8,11 @@ public class HouseWindowLightsManager : MonoBehaviour, IEnumerable<Material>
     private Renderer _renderer;
 
     private static Color _emissionColor = default;
-    private static readonly int _EmissionColorID;
+    private static readonly int _EmissionColorID, _TimeOffsetID;
     static HouseWindowLightsManager()
     {
         _EmissionColorID = Shader.PropertyToID("_EmissionColor");
+        _TimeOffsetID = Shader.PropertyToID("_TimeOffset");
     }
 
     public Material this[int index] => _renderer.sharedMaterials[index+2];
@@ -47,14 +48,20 @@ public class HouseWindowLightsManager : MonoBehaviour, IEnumerable<Material>
     {
         foreach (var material in this)
         {
-            material.SetColor(_EmissionColorID, _emissionColor);
+            material.SetColor(_EmissionColorID, Color.black);
         }
         var materials = _renderer.sharedMaterials;
         int n = Random.Range(1, materials.Length - 2);
         for(int i = 0; i < n; i++)
         {
-            materials[Random.Range(2, materials.Length)].SetColor(_EmissionColorID, Color.black);
+            SetMaterialDaily(materials[Random.Range(2, materials.Length)]);
         }
+    }
+
+    private void SetMaterialDaily(Material material)
+    {
+        material.SetColor(_EmissionColorID, _emissionColor);
+        material.SetFloat(_TimeOffsetID, Random.Range(0f, 1f));
     }
 
     IEnumerator IEnumerable.GetEnumerator()
