@@ -8,9 +8,10 @@ Shader "Window/WindowShader"
         _Metallic("Metallic", Range(0,1)) = 0.0
 
         [HDR] _EmissionColor("Emission color", Color) = (0,0,0,1)
-        [HideInInspector]_Centre("Centre",Vector) = (0,0,0,1)
         _Frequency("Frequency", Range(0,20)) = 1.597
         _TimeOffset("Time offset", Range(0,1)) = 0.0
+        [HideInInspector]_Centre("Centre",Vector) = (0,0,0,1)
+        [HideInInspector]_DistanceSq("Distance Squared", Float) = 3.0
     }
 
 
@@ -30,6 +31,7 @@ Shader "Window/WindowShader"
         struct Input
         {
             float2 uv_MainTex;
+            float3 worldPos;
         };
 
         uniform half _Glossiness;
@@ -46,7 +48,7 @@ Shader "Window/WindowShader"
         #define TAU 6.28318530718
         #define SIN01(f_,offset_) ((sin((_Time[1] * f_ - (offset_)) * TAU) + 1.0) * 0.5)
 
-        uniform float _Frequency, _TimeOffset;
+        uniform float _Frequency, _TimeOffset, _DistanceSq;
         uniform float3 _EmissionColor;
         uniform float3 _Centre;
 
@@ -66,7 +68,11 @@ Shader "Window/WindowShader"
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
-            o.Emission = c.rgb * tex2D(_MainTex, IN.uv_MainTex).a * _EmissionColor * (SIN01(_Frequency, _TimeOffset) * (1.2 - 1.1) + 1.1);
+
+            float inverseSqValue = saturate(_DistanceSq / dot(IN.worldPos - _Centre, IN.worldPos - _Centre));
+            //if (inverseSqValue > 1.0) inverseSqValue = 1.0;
+
+            o.Emission = c.rgb * tex2D(_MainTex, IN.uv_MainTex).a * _EmissionColor * (SIN01(_Frequency, _TimeOffset) * (1.2 - 1.1) + 1.1) * inverseSqValue;
         }
         ENDCG
     }

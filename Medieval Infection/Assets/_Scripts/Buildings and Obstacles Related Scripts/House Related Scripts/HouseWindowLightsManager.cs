@@ -8,11 +8,13 @@ public class HouseWindowLightsManager : MonoBehaviour, IEnumerable<Material>
     private Renderer _renderer;
 
     private static Color _emissionColor = default;
-    private static readonly int _EmissionColorID, _TimeOffsetID;
+    private static readonly int _EmissionColorID, _TimeOffsetID, _CentreID, _DistanceSqID;
     static HouseWindowLightsManager()
     {
         _EmissionColorID = Shader.PropertyToID("_EmissionColor");
         _TimeOffsetID = Shader.PropertyToID("_TimeOffset");
+        _CentreID = Shader.PropertyToID("_Centre");
+        _DistanceSqID = Shader.PropertyToID("_DistanceSq");
     }
 
     public Material this[int index] => _renderer.sharedMaterials[index+2];
@@ -81,11 +83,25 @@ public class HouseWindowLightsManager : MonoBehaviour, IEnumerable<Material>
     private void SetMaterials(Renderer renderer)
     {
         var materials = renderer.sharedMaterials;
+        var mesh = renderer.GetComponent<MeshFilter>().mesh;
+        var transformMatrix = renderer.transform.localToWorldMatrix;
+
         for (int i = 2; i < renderer.sharedMaterials.Length; ++i)
         {
             materials[i] = Instantiate(materials[i]);
+
+            var bounds = mesh.GetSubMesh(i).bounds;
+            Vector4 centre = bounds.center;
+            centre.w = 1f;
+            materials[i].SetVector(_CentreID, transformMatrix * centre);
+            float d = (bounds.extents.x + bounds.extents.z) * 0.5f * 1.1f;
+            if (d < 0.4f) d = 0.4f;
+            materials[i].SetFloat(_DistanceSqID, d * d);
         }
+
         renderer.sharedMaterials = materials;
+
+
 
         if(_emissionColor == default) _emissionColor = materials[2].GetColor(_EmissionColorID);
     }
