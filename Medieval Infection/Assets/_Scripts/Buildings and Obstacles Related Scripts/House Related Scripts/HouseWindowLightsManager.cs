@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class HouseWindowLightsManager : MonoBehaviour, IEnumerable<Material>
 {
-    [SerializeField, ReadOnlyOnInspector]
     private Renderer _renderer;
+
+    [SerializeField, HideInInspector]
+    private Vector4[] _centresAndDistancesSq;
 
     private static Color _emissionColor = default;
     private static readonly int _EmissionColorID, _TimeOffsetID, _CentreID, _DistanceSqID;
@@ -19,19 +21,15 @@ public class HouseWindowLightsManager : MonoBehaviour, IEnumerable<Material>
 
     public Material this[int index] => _renderer.sharedMaterials[index+2];
 
-    private Renderer GetChildRenderer
+    private Renderer GetChildRenderer()
     {
-        get
+        if (TryGetComponent(out Renderer renderer)) return renderer;
+        foreach (Transform child in transform)
         {
-            foreach (Transform child in transform)
-            {
-                if (child.gameObject.activeSelf) return child.GetComponent<Renderer>();
-            }
-            return null;
+            if (child.gameObject.activeSelf) return child.GetComponent<Renderer>();
         }
+        return null;
     }
-
-
 
     [Zenject.Inject]
     public void Construct(DayNightCycle dayCycle)
@@ -41,13 +39,14 @@ public class HouseWindowLightsManager : MonoBehaviour, IEnumerable<Material>
 
     private void Awake()
     {
-        SetMaterials(_renderer = GetChildRenderer);
+        SetMaterials(_renderer = GetChildRenderer());
     }
 
 
 
     private void ChangeLights()
     {
+        if (!gameObject.activeSelf) return;
         foreach (var material in this)
         {
             material.SetColor(_EmissionColorID, Color.black);
@@ -56,19 +55,97 @@ public class HouseWindowLightsManager : MonoBehaviour, IEnumerable<Material>
         int n = Random.Range(1, materials.Length - 2);
         for(int i = 0; i < n; i++)
         {
-            SetMaterialDaily(materials[Random.Range(2, materials.Length)]);
+            SetMaterialPropertiesDaily(materials[Random.Range(2, materials.Length)]);
         }
     }
 
-    private void SetMaterialDaily(Material material)
+    private void SetMaterialPropertiesDaily(Material material)
     {
         material.SetColor(_EmissionColorID, _emissionColor);
         material.SetFloat(_TimeOffsetID, Random.Range(0f, 1f));
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    private void SetMaterials(Renderer renderer)
     {
-        return GetEnumerator();
+        var materials = renderer.sharedMaterials;
+
+        if (_centresAndDistancesSq != null && _centresAndDistancesSq.Length != 0)
+        {
+            for (int i = 2; i < renderer.sharedMaterials.Length; ++i)
+            {
+                materials[i] = Instantiate(materials[i]);
+                materials[i].SetVector(_CentreID, _centresAndDistancesSq[i - 2]);
+                materials[i].SetFloat(_DistanceSqID, _centresAndDistancesSq[i - 2].w);
+            }
+        }
+        else
+        {
+            var transformMatrix = renderer.transform.localToWorldMatrix;
+            var mesh = renderer.GetComponent<MeshFilter>().sharedMesh;
+            for (int i = 2; i < renderer.sharedMaterials.Length; ++i)
+            {
+                materials[i] = Instantiate(materials[i]);
+                var bounds = mesh.GetSubMesh(i).bounds;
+                Vector4 centre = bounds.center;
+                centre.w = 1f;
+                materials[i].SetVector(_CentreID, transformMatrix * centre);
+
+                float d = (bounds.extents.x + bounds.extents.z) * 0.5f * 1.1f;
+                if (d < 0.4f) d = 0.4f;
+                materials[i].SetFloat(_DistanceSqID, d * d);
+            }
+        }
+
+        renderer.sharedMaterials = materials;
+
+        if(_emissionColor == default) _emissionColor = materials[2].GetColor(_EmissionColorID);
+    }
+
+    //private static Vector4 CalculateCentreOfSubMesh(Mesh mesh, int subMeshIndex)
+    //{
+    //    int[] triangles = mesh.GetTriangles(subMeshIndex);
+    //    Vector3[] vertices = mesh.vertices;
+    //    Vector3 centre = default;
+    //    for (int i = 0; i < triangles.Length; ++i)
+    //    {
+    //        centre += vertices[triangles[i]];
+    //    }
+    //    return centre / triangles.Length;
+    //}
+
+    public void SetCentres()
+    {
+        var renderer = GetChildRenderer();
+        var mesh = renderer.GetComponent<MeshFilter>().sharedMesh;
+        int length = renderer.sharedMaterials.Length - 2;
+        var transformMatrix = renderer.transform.localToWorldMatrix;
+
+        _centresAndDistancesSq = new Vector4[length];
+        for (int i = 0; i < length; ++i)
+        {
+            _centresAndDistancesSq[i] = CalculateCentreAndDistanceSq(transformMatrix, mesh.GetSubMesh(i + 2).bounds);
+        }
+
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(this);
+        }
+#endif
+
+    }
+
+    private Vector4 CalculateCentreAndDistanceSq(in Matrix4x4 transformMatrix, in Bounds bounds)
+    {
+        Vector4 centre = bounds.center;
+        centre.w = 1f;
+        centre = transformMatrix * centre;
+
+        float d = (bounds.extents.x + bounds.extents.z) * 0.5f * 1.1f;
+        if (d < 0.4f) d = 0.4f;
+        centre.w = d * d;
+
+        return centre;
     }
 
     public IEnumerator<Material> GetEnumerator()
@@ -80,29 +157,8 @@ public class HouseWindowLightsManager : MonoBehaviour, IEnumerable<Material>
         }
     }
 
-    private void SetMaterials(Renderer renderer)
+    IEnumerator IEnumerable.GetEnumerator()
     {
-        var materials = renderer.sharedMaterials;
-        var mesh = renderer.GetComponent<MeshFilter>().mesh;
-        var transformMatrix = renderer.transform.localToWorldMatrix;
-
-        for (int i = 2; i < renderer.sharedMaterials.Length; ++i)
-        {
-            materials[i] = Instantiate(materials[i]);
-
-            var bounds = mesh.GetSubMesh(i).bounds;
-            Vector4 centre = bounds.center;
-            centre.w = 1f;
-            materials[i].SetVector(_CentreID, transformMatrix * centre);
-            float d = (bounds.extents.x + bounds.extents.z) * 0.5f * 1.1f;
-            if (d < 0.4f) d = 0.4f;
-            materials[i].SetFloat(_DistanceSqID, d * d);
-        }
-
-        renderer.sharedMaterials = materials;
-
-
-
-        if(_emissionColor == default) _emissionColor = materials[2].GetColor(_EmissionColorID);
+        return GetEnumerator();
     }
 }
